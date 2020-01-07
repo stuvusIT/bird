@@ -1,0 +1,21 @@
+{% macro print_config(config) %}
+{% for element in config %}
+{% if element is mapping %}
+{% for key, value in element.items() %}
+{{ key }} {
+    {{ print_config(value) | indent }}
+{%- if key.startswith("if ") or key == "else" %}
+}
+{% else %}
+};
+{% endif %}
+{% endfor %}
+{% else %}
+{{ element }};
+{% endif %}
+{% endfor %}
+{% endmacro -%}
+
+# {{ ansible_managed }}
+
+{{ print_config(bird_fact_config) }}

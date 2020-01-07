@@ -1,0 +1,23 @@
+---
+- name: Install BIRD
+  apt:
+    name:
+      - bird
+
+- name: Instantiate BIRD IPv4 config
+  template:
+    src: bird.conf.j2
+    dest: /etc/bird/bird.conf
+  vars:
+    bird_fact_config: "{{ bird_ipv4_config }}"
+  notify:
+    - Configure bird service
+
+- name: Instantiate BIRD IPv6 config
+  vars:
+    bird_fact_config: "{{ bird_ipv6_config }}"
+  template:
+    src: bird.conf.j2
+    dest: /etc/bird/bird6.conf
+  notify:
+    - Configure bird6 service
