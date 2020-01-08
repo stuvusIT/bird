@@ -11,7 +11,7 @@
   vars:
     bird_fact_config: "{{ bird_ipv4_config }}"
   notify:
-    - Configure bird service
+    - Reload bird service if required
 
 - name: Instantiate BIRD IPv6 config
   vars:
@@ -20,4 +20,16 @@
     src: bird.conf.j2
     dest: /etc/bird/bird6.conf
   notify:
-    - Configure bird6 service
+    - Reload bird6 service if required
+
+- name: Configure bird service
+  service:
+    name: bird
+    enabled: "{{ bird_ipv4_config != [] }}"
+    state: "{% if bird_ipv4_config != [] %}started{% else %}stopped{% endif %}"
+
+- name: Configure bird6 service
+  service:
+    name: bird6
+    enabled: "{{ bird_ipv6_config != [] }}"
+    state: "{% if bird_ipv6_config != [] %}started{% else %}stopped{% endif %}"
