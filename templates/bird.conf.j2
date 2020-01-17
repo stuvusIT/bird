@@ -6,14 +6,14 @@
     {{ print_config(value) | indent }}
 {%- if key.startswith("if ") or key == "else" %}
 }
-{% else %}
+{% else %}{# if key.startswith("if ") or key == "else" #}
 };
-{% endif %}
-{% endfor %}
-{% else %}
+{% endif %}{# if key.startswith("if ") or key == "else" #}
+{% endfor %}{# for key, value in element.items() #}
+{% else %}{# if element is mapping #}
 {{ element }};
-{% endif %}
-{% endfor %}
+{% endif %}{# if element is mapping #}
+{% endfor %}{# element in config #}
 {% endmacro -%}
 
 # {{ ansible_managed }}
