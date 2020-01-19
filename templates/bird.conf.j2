@@ -1,19 +1,18 @@
 {% macro print_config(config) %}
+{% if config is string %}
+{{ config }}
+{%- else %}{# if config is string #}
 {% for element in config %}
 {% if element is mapping %}
 {% for key, value in element.items() %}
 {{ key }} {
-    {{ print_config(value) | indent }}
-{%- if key.startswith("if ") or key == "else" %}
-}
-{% else %}{# if key.startswith("if ") or key == "else" #}
-};
-{% endif %}{# if key.startswith("if ") or key == "else" #}
+    {{ print_config(value) | indent }}};
 {% endfor %}{# for key, value in element.items() #}
 {% else %}{# if element is mapping #}
 {{ element }};
 {% endif %}{# if element is mapping #}
 {% endfor %}{# element in config #}
+{% endif %}{# if config is string #}
 {% endmacro -%}
 
 # {{ ansible_managed }}
