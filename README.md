@@ -1,7 +1,7 @@
 # Ansible role for the BIRD Internet Routing Daemon
 
 This role installs and configures
-[the BIRD Internet Routing Daemon](https://bird.network.cz).
+[the BIRD Internet Routing Daemon](https://bird.network.cz) on an APT-based system.
 
 ## Example Playbook
 
