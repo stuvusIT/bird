@@ -22,6 +22,8 @@
   notify:
     - Reload bird6 service if required
 
+- meta: flush_handlers
+
 - name: Configure bird service
   service:
     name: bird
@@ -33,11 +35,3 @@
     name: bird6
     enabled: "{{ bird_ipv6_config != [] }}"
     state: "{% if bird_ipv6_config != [] %}started{% else %}stopped{% endif %}"
-
-- meta: flush_handlers
-
-- name: Enable bird service
-  service:
-    name: bird
-    enabled: True
-    state: started
