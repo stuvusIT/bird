@@ -1,18 +1,20 @@
 {% macro print_config(config) %}
-{% if config is string %}
-{{ config }}
-{%- elif config is mapping %}
+{% if config is mapping %}
 {% for key, value in config.items() %}
+
 {{ key }} {
-    {{ print_config(value) | indent }}}
+    {{- print_config(value) | indent }}
+}
 {%- endfor %}
-{% else %}
+{% elif config is iterable and config is not string %}
 {% for element in config %}
 {{ print_config(element) }};
-{% endfor %}
-{% endif %}
+{%- endfor %}
+{%- else %}
+
+{{ config }}
+{%- endif %}
 {% endmacro -%}
 
 # {{ ansible_managed }}
-
 {{ print_config(bird_fact_config) }}
