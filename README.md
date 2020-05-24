@@ -95,7 +95,7 @@ The general policy is as follows:
 * A `string` is written into the config as is.
 * On a `list` the policy is applied recursively on the elements and a semicolon is added after each
   element.
-* On a `dict` each key-value pair turns into `key: { value }` and the policy is applied recursively
+* On a `dict` each key-value pair turns into `key: { value };` and the policy is applied recursively
   on the values.
 
 ## Role variable defaults
